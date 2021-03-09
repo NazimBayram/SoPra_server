@@ -2,12 +2,34 @@ package ch.uzh.ifi.hase.soprafs21.rest.dto;
 
 import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class UserGetDTO {
 
     private Long id;
     private String name;
     private String username;
     private UserStatus status;
+    private Timestamp createdAt;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    private String birthday;
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Long getId() {
         return id;
@@ -40,4 +62,5 @@ public class UserGetDTO {
     public void setStatus(UserStatus status) {
         this.status = status;
     }
+
 }

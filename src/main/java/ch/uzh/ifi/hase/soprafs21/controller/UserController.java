@@ -40,17 +40,73 @@ public class UserController {
         return userGetDTOs;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/users/registration")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public UserGetDTO createUser(@RequestBody UserPostDTO userPostDTO) {
         // convert API user to internal representation
         User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
 
-        // create user
+        // create user in database
         User createdUser = userService.createUser(userInput);
 
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
     }
+
+    @PostMapping("/users/login")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO loginUser(@RequestBody UserPostDTO userPostDTO) {
+
+        // convert API user to internal representation
+        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+
+        // check if user exists
+        User loginUser = userService.checkForLogin(userInput);
+
+        // convert internal representation of user back to API
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
+    }
+
+    @PostMapping("/user")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO getUserByID(@RequestBody UserPostDTO userPostDTO) {
+
+        // convert API user to internal representation
+        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+        System.out.println(userPostDTO.toString());
+
+        // check if user exists
+        User loginUser = userService.getUser(userInput.getUsername());
+
+        // convert internal representation of user back to API
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
+
+    }
+
+    @PostMapping("/birthdayUpdate")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO savebirtday(@RequestBody UserPostDTO userPostDTO) {
+
+        // convert API user to internal representation
+        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+        System.out.println(userPostDTO.toString());
+
+        // check if user exists
+        User loginUser = userService.getUser(userInput.getUsername());
+
+        loginUser.setBirthday(userPostDTO.getBirthday());
+
+
+        // convert internal representation of user back to API
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.updateUser(loginUser));
+
+    }
+
+
+
+
 }

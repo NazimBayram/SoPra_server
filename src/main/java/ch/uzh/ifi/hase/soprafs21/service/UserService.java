@@ -74,4 +74,40 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage, "name", "is"));
         }
     }
+
+    public User checkForLogin(User userToLogin) {
+        User userByUsername = userRepository.findByUsername(userToLogin.getUsername());
+        //User userByName = userRepository.findByName(userToLogin.getName());
+        //User userPassword = userRepository.findByPassword(userToLogin.getPassword());
+
+        String baseErrorMessage = "The user doesn't exist. Please check the credentials and password!";
+        if (userByUsername != null ) {
+            if(userByUsername.getName().equals(userToLogin.getName()) && userByUsername.getPassword().equals(userToLogin.getPassword()))
+            {
+                return userToLogin;
+            }
+            else{
+                baseErrorMessage="Incorrect Password Or Name";
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage));
+            }
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage));
+        }
+
+    }
+
+    public User updateUser (User user) {
+
+        // saves the given entity but data is only persisted in the database once flush() is called
+        user = userRepository.save(user);
+        userRepository.flush();
+
+        log.debug("Created Information for User: {}", user);
+        return user;
+    }
+
+    public User getUser(String username) {
+        return this.userRepository.findByUsername(username);
+    }
 }

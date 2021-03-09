@@ -1,9 +1,12 @@
 package ch.uzh.ifi.hase.soprafs21.entity;
 
 import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Internal User Representation
@@ -33,6 +36,37 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private UserStatus status;
+
+    @Column(nullable = false)
+    private String password;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    @Column
+    private String birthday;
+
+
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -66,6 +100,19 @@ public class User implements Serializable {
         this.token = token;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", token='" + token + '\'' +
+                ", status=" + status +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
+
     public UserStatus getStatus() {
         return status;
     }
@@ -73,4 +120,5 @@ public class User implements Serializable {
     public void setStatus(UserStatus status) {
         this.status = status;
     }
+
 }
