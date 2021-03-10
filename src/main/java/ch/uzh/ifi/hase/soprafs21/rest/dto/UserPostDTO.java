@@ -20,8 +20,6 @@ public class UserPostDTO {
 
     private String birthday;
 
-
-
     public String getName() {
         return name;
     }

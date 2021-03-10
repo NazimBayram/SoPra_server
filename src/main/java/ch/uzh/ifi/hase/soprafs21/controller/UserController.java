@@ -69,6 +69,7 @@ public class UserController {
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
     }
 
+    /**
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -85,6 +86,8 @@ public class UserController {
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
 
     }
+    */
+
 
     @PostMapping("/birthdayUpdate")
     @ResponseStatus(HttpStatus.OK)
@@ -106,7 +109,10 @@ public class UserController {
 
     }
 
-
+    /**
+     * Put & Post both can be used, but put is more use for updating and post for creatiing.
+     * PUT: Create or update based on existence of the resource.
+     */
 
 
 }
