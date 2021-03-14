@@ -43,6 +43,9 @@ public class User implements Serializable {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    @Column
+    private String birthday;
+
     public String getBirthday() {
         return birthday;
     }
@@ -50,10 +53,6 @@ public class User implements Serializable {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
-
-    @Column
-    private String birthday;
-
 
 
     public Timestamp getCreatedAt() {

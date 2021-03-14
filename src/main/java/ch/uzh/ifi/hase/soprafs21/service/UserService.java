@@ -38,8 +38,9 @@ public class UserService {
     }
 
     public User createUser(User newUser) {
-        newUser.setToken(UUID.randomUUID().toString());
+        newUser.setToken(newUser.getUsername());
         newUser.setStatus(UserStatus.OFFLINE);
+        //System.out.println("0000"+newUser.toString());
 
         checkIfUserExists(newUser);
 
@@ -76,18 +77,22 @@ public class UserService {
     }
 
     public User checkForLogin(User userToLogin) {
+        System.out.println("jjj"+userToLogin.toString());
         User userByUsername = userRepository.findByUsername(userToLogin.getUsername());
-        //User userByName = userRepository.findByName(userToLogin.getName());
-        //User userPassword = userRepository.findByPassword(userToLogin.getPassword());
+        System.out.println(userByUsername.toString());
+        // User userByUsername = userRepository.findByID(userToLogin.getId());
 
         String baseErrorMessage = "The user doesn't exist. Please check the credentials and password!";
-        if (userByUsername != null ) {
-            if(userByUsername.getName().equals(userToLogin.getName()) && userByUsername.getPassword().equals(userToLogin.getPassword()))
-            {
+        if (userByUsername != null) {
+            if (userByUsername.getName().equals(userToLogin.getName()) && userByUsername.getPassword().equals(userToLogin.getPassword())) {
+                //setting token as username
+                userToLogin.setToken(userToLogin.getUsername());
+                //userToLogin.setStatus(UserStatus.ONLINE);
+                //System.out.println(userToLogin.getStatus());
                 return userToLogin;
             }
-            else{
-                baseErrorMessage="Incorrect Password Or Name";
+            else {
+                baseErrorMessage = "Incorrect Password Or Name";
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format(baseErrorMessage));
             }
         }
@@ -97,7 +102,7 @@ public class UserService {
 
     }
 
-    public User updateUser (User user) {
+    public User updateUser(User user) {
 
         // saves the given entity but data is only persisted in the database once flush() is called
         user = userRepository.save(user);
@@ -107,8 +112,30 @@ public class UserService {
         return user;
     }
 
-    public User getUser(String username) {
-
-        return this.userRepository.findByUsername(username);
+    public User getUser(Long id) {
+        // System.out.println(id);
+        User xyz = this.userRepository.findById(id).get();
+        xyz.setStatus(UserStatus.ONLINE);
+        System.out.println(xyz.getStatus());
+        return xyz;
+        //return this.userRepository.findById(id).get();
     }
+
+    public User getUserbyUsername(String username) {
+        //System.out.println(username);
+        User xyz = this.userRepository.findByUsername(username);
+        xyz.setStatus(UserStatus.ONLINE);
+        System.out.println(xyz.getStatus());
+        return xyz;
+        //return this.userRepository.findByUsername(username);
+    }
+
+    /**
+    public User getUser(Long id) {
+
+        return userRepository.findById()
+
+     return this.userRepository.findById(Long.valueOf(username)).get();
+    }
+    */
 }

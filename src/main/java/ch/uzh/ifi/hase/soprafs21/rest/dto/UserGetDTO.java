@@ -5,6 +5,8 @@ import ch.uzh.ifi.hase.soprafs21.constant.UserStatus;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+//sending Data to the client
+
 public class UserGetDTO {
 
     private Long id;
@@ -12,6 +14,16 @@ public class UserGetDTO {
     private String username;
     private UserStatus status;
     private Timestamp createdAt;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    private String token;
 
     public String getBirthday() {
         return birthday;

@@ -2,13 +2,37 @@ package ch.uzh.ifi.hase.soprafs21.rest.dto;
 
 import java.sql.Date;
 
+//getting Data from client
+
 public class UserPostDTO {
+
+    private Long id;
 
     private String name;
 
     private String username;
 
     private String password;
+
+    private String token;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getBirthday() {
         return birthday;
@@ -24,19 +48,22 @@ public class UserPostDTO {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
         return "UserPostDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birthday='" + birthday + '\'' +
                 '}';
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 
     public String getUsername() {
         return username;
@@ -46,6 +73,7 @@ public class UserPostDTO {
         this.username = username;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -53,4 +81,13 @@ public class UserPostDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }
