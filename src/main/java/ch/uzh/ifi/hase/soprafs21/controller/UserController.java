@@ -73,56 +73,38 @@ public class UserController {
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
     }
 
-    @PostMapping("/user")
-    //@PostMapping Mapping("/users/{userId}")
+    //@PostMapping("/user")
+    @GetMapping ("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public UserGetDTO getUserByID(@RequestBody UserPostDTO userPostDTO/**, @PathVariable("userId") String userId*/) {
+    public UserGetDTO getUserByID(@PathVariable Long userId) {
 
         // convert API user to internal representation
-        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+      //  User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
         //System.out.println(userPostDTO.toString());
 
         // check if user exists
-        User loginUser = userService.getUser(userInput.getId());
+      //  User loginUser = userService.getUser(userInput.getId());
+        User loginUser = userService.getUser(userId);
         // User loginUser = userService.getUser(userInput.getId());
 
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
 
     }
-    /**
-    @PostMapping("/birthdayUpdate")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public UserGetDTO savebirtday(@RequestBody UserPostDTO userPostDTO) {
-
-        // convert API user to internal representation
-        User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
-        //System.out.println(userPostDTO.toString());
-
-        // check if user exists
-        User loginUser = userService.getUser(userInput.getId());
-        // User loginUser = userService.getUser(userInput.getId());
-
-        loginUser.setBirthday(userPostDTO.getBirthday());
-
-
-        // convert internal representation of user back to API
-        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.updateUser(loginUser));
-
-    }*/
 
     @PostMapping("/userbyusername")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public UserGetDTO getUserProfile(@RequestBody UserPostDTO userPostDTO) {
+    //public UserGetDTO getUserProfile(@PathVariable String userName) {
 
         // convert API user to internal representation
         User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
 
         // check if user exists
         User loginUser = userService.getUserbyUsername(userInput.getUsername());
+        //User loginUser = userService.getUserbyUsername(userName);
 
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(loginUser);
@@ -148,6 +130,28 @@ public class UserController {
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.updateUser(loginUser));
     }
+
+    /**
+     @PostMapping("/birthdayUpdate")
+     @ResponseStatus(HttpStatus.OK)
+     @ResponseBody
+     public UserGetDTO savebirtday(@RequestBody UserPostDTO userPostDTO) {
+
+     // convert API user to internal representation
+     User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
+     //System.out.println(userPostDTO.toString());
+
+     // check if user exists
+     User loginUser = userService.getUser(userInput.getId());
+     // User loginUser = userService.getUser(userInput.getId());
+
+     loginUser.setBirthday(userPostDTO.getBirthday());
+
+
+     // convert internal representation of user back to API
+     return DTOMapper.INSTANCE.convertEntityToUserGetDTO(userService.updateUser(loginUser));
+
+     }*/
 
     /**
      * Put & Post both can be used, but put is more use for updating and post for creating.

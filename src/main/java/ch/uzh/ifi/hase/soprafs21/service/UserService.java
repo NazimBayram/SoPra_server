@@ -77,9 +77,9 @@ public class UserService {
     }
 
     public User checkForLogin(User userToLogin) {
-        System.out.println("jjj"+userToLogin.toString());
+        //System.out.println("jjj"+userToLogin.toString());
         User userByUsername = userRepository.findByUsername(userToLogin.getUsername());
-        System.out.println(userByUsername.toString());
+        //System.out.println(userByUsername.toString());
         // User userByUsername = userRepository.findByID(userToLogin.getId());
 
         String baseErrorMessage = "The user doesn't exist. Please check the credentials and password!";
@@ -115,7 +115,7 @@ public class UserService {
     public User getUser(Long id) {
         // System.out.println(id);
         User xyz = this.userRepository.findById(id).get();
-        xyz.setStatus(UserStatus.OFFLINE);
+        xyz.setStatus(UserStatus.ONLINE);
         System.out.println(xyz.getStatus());
         return xyz;
         //return this.userRepository.findById(id).get();
