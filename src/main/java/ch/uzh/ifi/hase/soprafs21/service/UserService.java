@@ -115,7 +115,7 @@ public class UserService {
     public User getUser(Long id) {
         // System.out.println(id);
         User xyz = this.userRepository.findById(id).get();
-        xyz.setStatus(UserStatus.ONLINE);
+        xyz.setStatus(UserStatus.OFFLINE);
         System.out.println(xyz.getStatus());
         return xyz;
         //return this.userRepository.findById(id).get();
