@@ -77,7 +77,7 @@ public class UserController {
     //@GetMapping ("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public UserGetDTO getUserByID(@RequestBody UserPostDTO userPostDTO) {
+    public UserGetDTO getUserByID(@RequestBody UserPostDTO userPostDTO){
 
         // convert API user to internal representation
       User userInput = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
